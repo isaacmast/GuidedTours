@@ -8,6 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Set up MAPS_RECEIVE permissions -->
     <permission
@@ -25,8 +26,8 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="com.google.andoird.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--<uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />-->
 
     <!-- Maps API version 2 requires OpenGL ES version 2 -->
     <uses-feature
