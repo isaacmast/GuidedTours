@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 import android.support.v4.content.ContextCompat;
@@ -35,11 +36,14 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks,
-        OnConnectionFailedListener {
+        OnConnectionFailedListener, OnClickListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
+
+    private Button viewDesc;
+    private Intent descIntent;
 
     //**************************************************************
     // Activity lifecycle methods
@@ -48,6 +52,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        viewDesc = (Button) findViewById(R.id.viewDesc);
+        viewDesc.setOnClickListener(this);
+        descIntent = new Intent(getApplicationContext(),
+                DescActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -178,4 +187,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setCurrentLocationMarker();
     }
 
+    @Override
+    public void onClick(View v) {
+        startActivity(descIntent);
+    }
 }

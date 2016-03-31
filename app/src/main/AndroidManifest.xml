@@ -62,6 +62,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DescActivity"
+            android:label="@string/title_activity_desc" >
+        </activity>
     </application>
 
 </manifest>
