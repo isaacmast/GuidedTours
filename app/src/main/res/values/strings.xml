@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">GuidedTours</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_desc">Description</string>
+
+    <string name="desc_title">Title</string>
+    <string name="description">Description</string>
+    <string name="back_maps">Back To Maps</string>
 </resources>
