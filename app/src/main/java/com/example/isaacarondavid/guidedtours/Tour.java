@@ -34,4 +34,8 @@ public class Tour {
 	public String toString() {
 		return name;
 	}
+
+	//I will make an object for a stop on the tour and then this object can contain
+	//an arraylist of stop objects. Then we can make methods that convert the list of
+	//stops to one string and then a method that can parse out that string.
 }
