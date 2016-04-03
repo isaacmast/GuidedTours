@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class TourDB {
 
@@ -50,7 +51,7 @@ public class TourDB {
 			Log.d("Task list", "Upgrading db from version "
 					+ oldVersion + " to " + newVersion);
 
-			db.execSQL(TaskListDB.DROP_TOUR_TABLE);
+			db.execSQL(TourDB.DROP_TOUR_TABLE);
 			onCreate(db);
 		}
 	}
@@ -60,7 +61,7 @@ public class TourDB {
 	private DBHelper dbHelper;
 
 	// constructor
-	public TaskListDB(Context context) {
+	public TourDB(Context context) {
 		dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
 	}
 
@@ -70,7 +71,7 @@ public class TourDB {
 	}
 
 	private void openWriteableDB() {
-		db = dbHelper.getWriteableDatabase();
+		db = dbHelper.getWritableDatabase();
 	}
 
 	private void closeDB() {

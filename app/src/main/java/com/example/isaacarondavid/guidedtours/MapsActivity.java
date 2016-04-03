@@ -43,7 +43,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient googleApiClient;
 
     private Button viewDesc;
-    private Intent descIntent;
 
     //**************************************************************
     // Activity lifecycle methods
@@ -55,8 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         viewDesc = (Button) findViewById(R.id.viewDesc);
         viewDesc.setOnClickListener(this);
-        descIntent = new Intent(getApplicationContext(),
-                DescActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -189,6 +186,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onClick(View v) {
+        Intent descIntent = new Intent(this, DescActivity.class);
         startActivity(descIntent);
     }
 }
