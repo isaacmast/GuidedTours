@@ -25,6 +25,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,13 +37,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks,
-        OnConnectionFailedListener, OnClickListener {
+        OnConnectionFailedListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
-
-    private Button viewDesc;
 
     //**************************************************************
     // Activity lifecycle methods
@@ -51,9 +50,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        viewDesc = (Button) findViewById(R.id.viewDesc);
-        viewDesc.setOnClickListener(this);
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -136,6 +132,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
                                 .title("You are here"));
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                        startActivity(descIntent);
+                        return false;
+                    }
+                });
             }
         }
     }
@@ -184,9 +188,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setCurrentLocationMarker();
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent descIntent = new Intent(this, DescActivity.class);
-        startActivity(descIntent);
-    }
 }
