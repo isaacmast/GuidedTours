@@ -135,12 +135,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
                                 .title("You are here"));
+
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         Notify("Title","This is a test");
-                        /**Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                        startActivity(descIntent);*/
+                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                        startActivity(descIntent);
                         return false;
                     }
                 });
