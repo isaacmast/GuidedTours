@@ -1,6 +1,9 @@
 package com.example.isaacarondavid.guidedtours;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -135,13 +138,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                        startActivity(descIntent);
+                        Notify("Title","This is a test");
+                        /**Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                        startActivity(descIntent);*/
                         return false;
                     }
                 });
             }
         }
+    }
+
+    public void Notify(String notificationTitle, String notificationMessage){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        @SuppressWarnings("deprecation")
+
+        Intent intent = new Intent(this, NotificationView.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MapsActivity.this, 0, intent, 0);
+        Notification.Builder builder = new Notification.Builder(MapsActivity.this);
+        builder.setSmallIcon(R.drawable.common_google_signin_btn_icon_dark);
+        builder.setContentTitle("GuidedTours Notification");
+        builder.setContentText("This is a test.");
+        builder.build();
+        Notification myNotification = builder.getNotification();
+        notificationManager.notify(999, myNotification);
+
     }
 
 
