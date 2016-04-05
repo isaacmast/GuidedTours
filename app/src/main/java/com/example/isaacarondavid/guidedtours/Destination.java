@@ -8,12 +8,16 @@ public class Destination {
     private float longitude;
     private int id;
     private String name;
+    private int tourID;
+    private String description;
 
-    public Destination(int id, String name,float latitude, float longitude) {
+    public Destination(int id, String name,float latitude, float longitude, String description, int tourID) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
+        this.tourID = tourID;
+        this.description = description;
     }
 
     public float getLatitude() {
@@ -22,15 +26,20 @@ public class Destination {
     public float getLongitude() {
         return this.longitude;
     }
+    public int getTourID(){
+        return this.tourID;
+    }
+    public String getDescription() {
+        return this.description;
+    }
     public int getId() {
         return this.id;
     }
     public String getName(){
         return this.name;
     }
-    //String is id,name,latitude,longitude
     @Override
     public String toString(){
-        return Integer.toString(this.getId()) + "," + this.getName() + "," + Float.toString(this.getLatitude()) + "," + Float.toString(this.getLongitude());
+        return this.name;
     }
 }
