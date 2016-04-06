@@ -31,7 +31,6 @@ public class Tour {
 		return primaryLong;
 	}
 
-
 	@Override
 	public String toString() {
 		return name;
