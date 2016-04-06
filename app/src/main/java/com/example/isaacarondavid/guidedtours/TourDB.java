@@ -25,13 +25,45 @@ public class TourDB {
 	public static final String TOUR_NAME = "tour_name";
 	public static final int TOUR_NAME_COL = 1;
 
+	public static final String DESTINATION_TABLE = "destination";
+
+	public static final String DESTINATION_ID = "_id";
+	public static final int DESTINATION_ID_COL = 0;
+
+	public static final String DESTINATION_TOUR_ID = "tour_id";
+	public static final int DESTINATION_TOUR_ID_COL = 1;
+
+	public static final String DESTINATION_NAME = "destination_name";
+	public static final int DESTINATION_NAME_COL = 2;
+
+	public static final String DESTINATION_DESCRIPTION = "destination_description";
+	public static final int DESTINATION_DESCRIPTION_COL = 3;
+
+	public static final String DESTINATION_LATITUDE = "destination_latitude";
+	public static final int DESTINATION_LATITUDE_COL = 4;
+
+	public static final String DESTINATION_LONGITUDE = "destination_longitude";
+	public static final int DESTINATION_LONGITUDE_COL = 5;
+
 	public static final String CREATE_TOUR_TABLE = 
 		"CREATE TABLE " + TOUR_TABLE + " (" + 
 		TOUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-		TOUR_NAME + " TEXT	NOT NULL UNIQUE);";
+		TOUR_NAME + " TEXT NOT NULL UNIQUE);";
+
+	public static final String CREATE_DESTINATION_TABLE = 
+		"CREATE TABLE " + DESTINATION_TABLE + " (" + 
+		DESTINATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+		DESTINATION_TOUR_ID + " INTEGER NOT NULL, " + 
+		DESTINATION_NAME + " TEXT NOT NULL, " + 
+		DESTINATION_DESCRIPTION + " TEXT NOT NULL, " + 
+		DESTINATION_LATITUDE + " REAL NOT NULL, " + 
+		DESTINATION_LONGITUDE + " REAL NOT NULL);";
 
 	public static final String DROP_TOUR_TABLE = 
 		"DROP TABLE IF EXISTS " + TOUR_TABLE;
+
+	public static final String DROP_DESTINATION_TABLE = 
+		"DROP TABLE IF EXISTS " + DESTINATION_TABLE;
 
 	public static class DBHelper extends SQLiteOpenHelper {
 
@@ -52,6 +84,7 @@ public class TourDB {
 					+ oldVersion + " to " + newVersion);
 
 			db.execSQL(TourDB.DROP_TOUR_TABLE);
+			db.execSQL(TourDB.DROP_DESTINATION_TABLE);
 			onCreate(db);
 		}
 	}

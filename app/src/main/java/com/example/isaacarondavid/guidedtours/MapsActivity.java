@@ -1,6 +1,9 @@
 package com.example.isaacarondavid.guidedtours;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -25,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,13 +40,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks,
-        OnConnectionFailedListener, OnClickListener {
+        OnConnectionFailedListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
-
-    private Button viewDesc;
 
     //**************************************************************
     // Activity lifecycle methods
@@ -51,9 +53,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        viewDesc = (Button) findViewById(R.id.viewDesc);
-        viewDesc.setOnClickListener(this);
 
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -136,8 +135,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
                                 .title("You are here"));
+
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Notify("Title","This is a test");
+                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                        startActivity(descIntent);
+                        return false;
+                    }
+                });
             }
         }
+    }
+
+    public void Notify(String notificationTitle, String notificationMessage){
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        @SuppressWarnings("deprecation")
+
+        Intent intent = new Intent(this, NotificationView.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MapsActivity.this, 0, intent, 0);
+        Notification.Builder builder = new Notification.Builder(MapsActivity.this);
+        builder.setSmallIcon(R.drawable.common_google_signin_btn_icon_dark);
+        builder.setContentTitle("GuidedTours Notification");
+        builder.setContentText("This is a test.");
+        builder.build();
+        Notification myNotification = builder.getNotification();
+        notificationManager.notify(999, myNotification);
+
     }
 
 
@@ -184,9 +209,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setCurrentLocationMarker();
     }
 
-    @Override
-    public void onClick(View v) {
-        Intent descIntent = new Intent(this, DescActivity.class);
-        startActivity(descIntent);
-    }
 }
