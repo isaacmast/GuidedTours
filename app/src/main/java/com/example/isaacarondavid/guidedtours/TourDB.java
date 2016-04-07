@@ -124,6 +124,12 @@ public class TourDB {
 		}
 	}
 
+	/**
+	 * Retrieves multiple rows from the destinations table
+	 * @param tourName - the name of the associated Tour with the retrieved destinations
+	 * @return destinations - an ArrayList containing the destinations associated with 
+	 * the tour of name tourName
+	 */
 	public ArrayList<Destination> getDestinations(String tourName) {
 		String where = DESTINATION_TOUR_ID + "= ?";
 		int tourID = getTour(tourName).getId();
@@ -144,6 +150,11 @@ public class TourDB {
 		return destinations;
 	}
 
+	/**
+	 * Retrieves a tour of name tourName from the tour table
+	 * @param tourName - the name of the tour to be retrieved
+	 * @return tour - the tour of name tourName retrieved from the database
+	 */
 	public Tour getTour(String tourName) {
 		String where = TOUR_NAME + "= ?";
 		String[] whereArgs = {tourName};
@@ -168,6 +179,12 @@ public class TourDB {
 		return tour;
 	}
 
+	/**
+	 * Retrieves the current destination from the Cursor object
+	 * @param cursor - the Cursor object that contains the results from a DB query
+	 * @return destination - the destination pointed at by cursor
+	 * @return null - if cursor is empty or null or exception is thrown
+	 */
 	private static Destination getDestinationFromCursor(Cursor cursor) {
 		if (cursor == null || cursor.getCount() == 0) {
 			return null;
