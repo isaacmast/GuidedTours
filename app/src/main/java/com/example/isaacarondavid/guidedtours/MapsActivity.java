@@ -1,5 +1,7 @@
 package com.example.isaacarondavid.guidedtours;
 
+import java.util.ArrayList;
+
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -128,6 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         .tilt(25)
                                         .build()));
 
+
                 // add a marker for the current location
                 map.clear();      // clear old marker(s)
                 map.addMarker(    // add new marker
@@ -135,6 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
                                 .title("You are here"));
+                                //set alpha so it is its own color
 
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
@@ -147,6 +151,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
             }
         }
+    }
+    /*
+    Given a list of destinations this will set a marker for each one and move the camera to the primary destination
+     */
+    public void setDestinationMarkers(Tour tour) {
+            ArrayList<Destination> destinations = TourDB.getDestinations(tour.getName());
+            for (int i = 0; i < destinations.getSize(); i++){
+                    map.addMarker(    // add new marker
+                            new MarkerOptions()
+                                .position(new LatLng(destinations.get(i).getLatitude(),
+                                        destinations.get(i).getLongitude()))
+                                );
+
+                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        Notify("Title","This is a test");
+                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                        startActivity(descIntent);
+                        return false;
+                    }
+                });
+
+            }
+            setCurrentLocationMarker();
+            //move camera to primary destination
     }
 
     public void Notify(String notificationTitle, String notificationMessage){
