@@ -25,6 +25,15 @@ public class TourDB {
 	public static final String TOUR_NAME = "tour_name";
 	public static final int TOUR_NAME_COL = 1;
 
+	public static final String TOUR_DESCRIPTION = "tour_description";
+	public static final int TOUR_DESCRIPTION_COL = 2;
+
+	public static final String TOUR_PRIMARY_LATITUDE = "tour_primary_latitude";
+	public static final int TOUR_PRIMARY_LATITUDE_COL = 3;
+
+	public static final String TOUR_PRIMARY_LONGITUDE = "tour_primary_longitude";
+	public static final int TOUR_PRIMARY_LONGITUDE_COL = 4;
+
 	// destination table constants
 	public static final String DESTINATION_TABLE = "destination";
 
