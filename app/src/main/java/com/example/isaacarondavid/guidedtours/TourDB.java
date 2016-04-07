@@ -144,6 +144,30 @@ public class TourDB {
 		return destinations;
 	}
 
+	public Tour getTour(String tourName) {
+		String where = TOUR_NAME + "= ?";
+		String[] whereArgs = {tourName};
+
+		openReadableDB();
+		Cursor cursor = db.query(TOUR_TABLE, null, where, whereArgs, 
+			null, null, null);
+		Tour tour = null;
+		cursor.moveToFirst();
+		tour = new Tour(
+			cursor.getInt(TOUR_ID_COL), 
+			cursor.getString(TOUR_NAME_COL),
+			cursor.getString(TOUR_DESCRIPTION_COL), 
+			cursor.getFloat(TOUR_PRIMARY_LATITUDE_COL), 
+			cursor.getFloat(TOUR_PRIMARY_LONGITUDE_COL)
+		);
+		if (cursor != null) {
+			cursor.close();
+		}
+		this.closeDB();
+
+		return tour;
+	}
+
 	private static Destination getDestinationFromCursor(Cursor cursor) {
 		if (cursor == null || cursor.getCount() == 0) {
 			return null;
