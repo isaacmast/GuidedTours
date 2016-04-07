@@ -15,20 +15,45 @@ public class Tour {
 		this.primaryLat = lat;
 		this.primaryLong = lon;
 	}
+
 	public int getId() {
 		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getDescription() {
 		return description;
 	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public float getPrimaryLat() {
 		return primaryLat;
 	}
+
+	public void setPrimaryLat(float lat) {
+		this.primaryLat = lat;
+	}
+
 	public float getPrimaryLong() {
 		return primaryLong;
+	}
+
+	public void setPrimaryLong(float lon) {
+		this.primaryLong = lon;
 	}
 
 	@Override
