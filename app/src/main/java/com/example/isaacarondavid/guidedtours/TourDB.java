@@ -114,4 +114,24 @@ public class TourDB {
 			db.close();
 		}
 	}
+
+	public ArrayList<Destination> getDestinations(String tourName) {
+		String where = DESTINATION_TOUR_ID + "= ?";
+		int tourID = getTour(tourName).getId();
+		String[] whereArgs = { Integer.toString(tourId) };
+
+		this.openReadableDB();
+		Cursor cursor = db.query(DESTINATION_TABLE, null, where, whereArgs, 
+			null, null, null);
+		ArrayList<Destination> destinations = new ArrayList<Destination>();
+		while (cursor.moveToNext()) {
+			destinations.add(getDestinationFromCursor(cursor));
+		}
+		if (cursor != null) {
+			cursor.close();
+		}
+		this.closeDB();
+
+		return destinations;
+	}
 }
