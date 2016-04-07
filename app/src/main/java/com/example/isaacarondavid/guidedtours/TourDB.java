@@ -134,4 +134,25 @@ public class TourDB {
 
 		return destinations;
 	}
+
+	private static Destination getDestinationFromCursor(Cursor cursor) {
+		if (cursor == null || cursor.getCount() == 0) {
+			return null;
+		}
+		else {
+			try {
+				Destination destination = new Destination(
+					cursor.getInt(DESTINATION_ID_COL);
+					cursor.getInt(DESTINATION_TOUR_ID_COL);
+					cursor.getString(DESTINATION_NAME_COL);
+					cursor.getString(DESTINATION_DESCRIPTION_COL);
+					cursor.getFloat(DESTINATION_LATITUDE_COL);
+					cursor.getFloat(DESTINATION_LONGITUDE_COL);
+				return destination;
+			}
+			catch (Exception e) {
+				return null;
+			}
+		}
+	}
 }
