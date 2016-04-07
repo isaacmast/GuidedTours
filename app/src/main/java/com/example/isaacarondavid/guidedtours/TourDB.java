@@ -13,7 +13,7 @@ import android.util.Log;
 public class TourDB {
 
 	// database constants
-	public static final String DB_NAME = "tour.db";
+	public static final String DB_NAME = "tourdestination.db";
 	public static final int DB_VERSION = 1;
 
 	// tour table constants
@@ -25,6 +25,7 @@ public class TourDB {
 	public static final String TOUR_NAME = "tour_name";
 	public static final int TOUR_NAME_COL = 1;
 
+	// destination table constants
 	public static final String DESTINATION_TABLE = "destination";
 
 	public static final String DESTINATION_ID = "_id";
@@ -45,6 +46,7 @@ public class TourDB {
 	public static final String DESTINATION_LONGITUDE = "destination_longitude";
 	public static final int DESTINATION_LONGITUDE_COL = 5;
 
+	// SQL statements
 	public static final String CREATE_TOUR_TABLE = 
 		"CREATE TABLE " + TOUR_TABLE + " (" + 
 		TOUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
