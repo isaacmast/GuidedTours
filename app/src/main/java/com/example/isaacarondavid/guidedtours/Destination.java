@@ -5,18 +5,18 @@ package com.example.isaacarondavid.guidedtours;
  */
 public class Destination {
 	private int tourId;
+    private int destinationId;
     private String name;
 	private String description;
     private float latitude;
     private float longitude;
-    private int id;
 
-    public Destination(int id, String name,float latitude, float longitude, String description, int tourID) {
-        this.id = id;
+    public Destination(int tourId, int destinationId, String name, String description, float latitude, float longitude) {
+        this.tourId = tourId;
+        this.destinationId = destinationId;
+        this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.name = name;
-        this.tourID = tourID;
         this.description = description;
 	}
 
@@ -24,26 +24,49 @@ public class Destination {
 		return this.tourId;
 	}
 
+	public void setTourId(int tourId) {
+		this.tourId = tourId;
+	}
+
+    public int getDestinationId() {
+        return this.destinationId;
+    }
+
+	public void setDestinationId(int destinationId) {
+		this.destinationId = destinationId;
+	}
+    
     public String getName(){
         return this.name;
     }
 
+	public void setName(int name) {
+		this.name = name;
+	}
+
 	public String getDescription() {
 		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
     public float getLatitude() {
         return this.latitude;
     }
 
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
 
     public float getLongitude() {
         return this.longitude;
     }
-    
-    public int getId() {
-        return this.id;
-    }
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
     
     @Override
     public String toString(){
