@@ -118,7 +118,7 @@ public class TourDB {
 	public ArrayList<Destination> getDestinations(String tourName) {
 		String where = DESTINATION_TOUR_ID + "= ?";
 		int tourID = getTour(tourName).getId();
-		String[] whereArgs = { Integer.toString(tourId) };
+		String[] whereArgs = { Integer.toString(tourID) };
 
 		this.openReadableDB();
 		Cursor cursor = db.query(DESTINATION_TABLE, null, where, whereArgs, 
