@@ -9,6 +9,10 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -48,6 +52,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap map;
     private GoogleApiClient googleApiClient;
 
+    private TourDB db;
+
     //**************************************************************
     // Activity lifecycle methods
     //****************************************************************
@@ -55,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
+        db = new TourDB(this.getApplicationContext());
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
@@ -137,8 +143,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
-                                .title("You are here"));
-                                //set alpha so it is its own color
+                                .title("You are here"))
+                                .setAlpha(.1f);//set alpha so it is its own color
 
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
@@ -156,8 +162,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Given a list of destinations this will set a marker for each one and move the camera to the primary destination
      */
     public void setDestinationMarkers(Tour tour) {
-            ArrayList<Destination> destinations = TourDB.getDestinations(tour.getName());
-            for (int i = 0; i < destinations.getSize(); i++){
+            ArrayList<Destination> destinations = db.getDestinations(tour.getName());
+            for (int i = 0; i < destinations.size(); i++){
                     map.addMarker(    // add new marker
                             new MarkerOptions()
                                 .position(new LatLng(destinations.get(i).getLatitude(),
@@ -176,7 +182,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
             setCurrentLocationMarker();
+
             //move camera to primary destination
+            map.animateCamera(
+                CameraUpdateFactory.newCameraPosition(
+                        new CameraPosition.Builder()
+                                .target(new LatLng(tour.getPrimaryLat(),
+                                        tour.getPrimaryLong()))
+                                .zoom(16.5f)
+                                .bearing(0)
+                                .tilt(25)
+                                .build()));
     }
 
     public void Notify(String notificationTitle, String notificationMessage){
