@@ -134,7 +134,7 @@ public class TourDB {
 	}
 
 	/**
-	 * Create and/or open a database
+	 * Create and/or open a database for read access
 	 */
 	private void openReadableDB() {
 		db = dbHelper.getReadableDatabase();
@@ -237,5 +237,25 @@ public class TourDB {
 				return null;
 			}
 		}
+	}
+
+	/**
+	 * Inserts a new row into the Destination table
+	 * @param destination - the destination to be inserted into table
+	 * @return rowID - the row ID of the newly inserted row, or -1 if an error occurred
+	 */
+	public long insertDestination(Destination destination) {
+		ContentValues cv = new ContentValues();
+		cv.put(DESTINATION_TOUR_ID, destination.getTourId());
+		cv.put(DESTINATION_NAME, destination.getName());
+		cv.put(DESTINATION_DESCRIPTION, destination.getDescription());
+		cv.put(DESTINATION_LATITUDE, destination.getLatitude());
+		cv.put(DESTINATION_LONGITUDE, destination.getLongitude());
+
+		this.openWriteableDB();
+		long rowID = db.insert(DESTINATION_TABLE, null, cv);
+		this.closeDB();
+
+		return rowID;
 	}
 }
