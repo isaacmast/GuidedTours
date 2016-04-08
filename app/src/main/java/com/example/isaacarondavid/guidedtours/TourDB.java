@@ -10,6 +10,10 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Class for handling interaction with the database
+ * @author Isaac Mast 
+ */
 public class TourDB {
 
 	// database constants
@@ -76,19 +80,32 @@ public class TourDB {
 	public static final String DROP_DESTINATION_TABLE = 
 		"DROP TABLE IF EXISTS " + DESTINATION_TABLE;
 
+	/**
+	 * Controls creation and upgrading of TourDB database
+	 */
 	public static class DBHelper extends SQLiteOpenHelper {
 
+		/**
+		 * Constructs a new DBHelper object
+		 * @param context - provides information about application environment
+		 * @param name - the name of the database
+		 * @param factory - allows the returning of Cursor sub-classes during DB query
+		 * @param version - the version of the database
+		 */
 		public DBHelper(Context context, String name,
 				CursorFactory factory, int version) {
 			super(context, name, factory, version);
 		}
 
 		@Override
+		@inheritDoc
 		public void onCreate(SQLiteDatabase db) {
 			// create tables
 			db.execSQL(CREATE_TOUR_TABLE);
 		}
 
+		@Override
+		@inheritDoc
 		public void onUpgrade(SQLiteDatabase db, 
 				int oldVersion, int newVersion) {
 			Log.d("Task list", "Upgrading db from version "
@@ -104,20 +121,31 @@ public class TourDB {
 	private SQLiteDatabase db;
 	private DBHelper dbHelper;
 
-	// constructor
+	/**
+	 * Constructs a new TourDB object
+	 * @param context - provides information about application environment
+	 */
 	public TourDB(Context context) {
 		dbHelper = new DBHelper(context, DB_NAME, null, DB_VERSION);
 	}
 
-	// private methods
+	/**
+	 * Create and/or open a database
+	 */
 	private void openReadableDB() {
 		db = dbHelper.getReadableDatabase();
 	}
 
+	/**
+	 * Create and/or open a database for read/write access 
+	 */
 	private void openWriteableDB() {
 		db = dbHelper.getWritableDatabase();
 	}
 
+	/**
+	 * Closes the database object if open
+	 */
 	private void closeDB() {
 		if (db != null) {
 			db.close();
@@ -131,9 +159,9 @@ public class TourDB {
 	 * the tour of name tourName
 	 */
 	public ArrayList<Destination> getDestinations(String tourName) {
-		String where = DESTINATION_TOUR_ID + "= ?";
+		String where = DESTINATION_TOUR_ID + "= ?";			// ? represents parameter supplied later
 		int tourID = getTour(tourName).getId();
-		String[] whereArgs = { Integer.toString(tourID) };
+		String[] whereArgs = { Integer.toString(tourID) };	// WHERE clause parameter 
 
 		this.openReadableDB();
 		Cursor cursor = db.query(DESTINATION_TABLE, null, where, whereArgs, 
