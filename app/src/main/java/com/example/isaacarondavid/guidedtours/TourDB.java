@@ -97,15 +97,19 @@ public class TourDB {
 			super(context, name, factory, version);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
-		@inheritDoc
 		public void onCreate(SQLiteDatabase db) {
 			// create tables
 			db.execSQL(CREATE_TOUR_TABLE);
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
-		@inheritDoc
 		public void onUpgrade(SQLiteDatabase db, 
 				int oldVersion, int newVersion) {
 			Log.d("Task list", "Upgrading db from version "
