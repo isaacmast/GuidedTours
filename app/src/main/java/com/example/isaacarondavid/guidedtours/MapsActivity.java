@@ -138,7 +138,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                 // add a marker for the current location
-                map.clear();      // clear old marker(s)
                 map.addMarker(    // add new marker
                         new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(),
@@ -162,6 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Given a list of destinations this will set a marker for each one and move the camera to the primary destination
      */
     public void setDestinationMarkers(Tour tour) {
+            map.clear();
             ArrayList<Destination> destinations = db.getDestinations(tour.getName());
             for (int i = 0; i < destinations.size(); i++){
                     map.addMarker(    // add new marker
