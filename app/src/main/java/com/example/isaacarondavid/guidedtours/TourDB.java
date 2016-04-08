@@ -281,4 +281,20 @@ public class TourDB {
 		
 		return rowCount;
 	}
+
+	/**
+	 * Deletes the destination with destinationId of id from DB
+	 * @param id - the destinationId of the destination to be deleted from DB
+	 * @return rowCount - the number of rows affected by the deletion
+	 */
+	public int deleteDestination(long id) {
+		String where = DESTINATION_ID + "= ?";
+		String[] whereArgs = { String.valueOf(id) };
+
+		this.openWriteableDB();
+		int rowCount = db.delete(DESTINATION_TABLE, where, whereArgs);
+		this.closeDB();
+
+		return rowCount;
+	}
 }
