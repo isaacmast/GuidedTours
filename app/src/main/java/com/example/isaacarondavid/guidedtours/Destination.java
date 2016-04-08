@@ -15,9 +15,9 @@ public class Destination {
         this.tourId = tourId;
         this.destinationId = destinationId;
         this.name = name;
+        this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.description = description;
 	}
 
 	public int getTourId() {
