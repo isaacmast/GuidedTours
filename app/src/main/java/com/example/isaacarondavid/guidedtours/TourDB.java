@@ -258,4 +258,27 @@ public class TourDB {
 
 		return rowID;
 	}
+
+	/**
+	 * Updates the Destination table in the DB 
+	 * @param destination - the destination to update the DB with
+	 * @return rowCount - the number of rows affected by the update
+	 */
+	public int updateDestination(Destination destination) {
+		ContentValues cv = new ContentValues();
+		cv.put(DESTINATION_TOUR_ID, destination.getTourId());
+		cv.put(DESTINATION_NAME, destination.getName());
+		cv.put(DESTINATION_DESCRIPTION, destination.getDescription());
+		cv.put(DESTINATION_LATITUDE, destination.getLatitude());
+		cv.put(DESTINATION_LONGITUDE, destination.getLongitude());
+
+		String where = DESTINATION_ID + "= ?";
+		String[] whereArgs = { String.valueOf(destination.getDestinationId()) };
+
+		this.openWriteableDB();
+		int rowCount = db.update(DESTINATION_TABLE, cv, where, whereArgs);
+		this.closeDB();
+		
+		return rowCount;
+	}
 }
