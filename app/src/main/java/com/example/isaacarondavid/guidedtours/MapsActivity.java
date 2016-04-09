@@ -44,6 +44,12 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+//Some possible locations for testing (EMU Tour)
+//EMU Quad - 38.472543, -78.877306
+//Science Center - 38.470007, -78.878113
+//Library - 38.470272, -78.878997
+//Caf - 38.471730, -78.879643
+//Hilltop - 38.471409, -78.882383
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks,
         OnConnectionFailedListener {
@@ -53,6 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient googleApiClient;
 
     private TourDB db;
+
+    private Tour EMU;
 
     //**************************************************************
     // Activity lifecycle methods
@@ -66,6 +74,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
+
+
+        //for testing purposes
+        EMU = new Tour(1,"EMU","Significant places around EMU",(float)38.450999,(float)-78.878997);
+        //db.insertTour(EMU); //need this method
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
+        //would call setDestinationMarkers(EMU) here
     }
 
     @Override
