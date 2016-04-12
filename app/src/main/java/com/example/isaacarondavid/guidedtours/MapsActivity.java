@@ -17,6 +17,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -52,7 +53,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 //Hilltop - 38.471409, -78.882383
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks,
-        OnConnectionFailedListener {
+        OnConnectionFailedListener, LocationListener {
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     private GoogleMap map;
@@ -61,6 +62,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TourDB db;
 
     private Tour EMU;
+
+    private static final int UPDATE_INTERVAL = 5000; //5 seconds
+    private static final int FASTEST_UPDATE_INTERVAL = 2000; //2 seconds
+    private LocationRequest locationRequest;
 
     //**************************************************************
     // Activity lifecycle methods
@@ -82,6 +87,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
         //would call setDestinationMarkers(EMU) here
+
+        locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_UPDATE_INTERVAL);
     }
 
     @Override
@@ -189,7 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Notify("Title","This is a test");
                         Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
                         startActivity(descIntent);
                         return false;
@@ -234,11 +241,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnected(Bundle dataBundle) {
         updateMap();
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},1);
+        }
+        LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show();
+        if (googleApiClient.isConnected()){
+            LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
+        }
     }
 
     //**************************************************************
@@ -269,6 +284,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map = googleMap;
         Toast.makeText(this,"Map ready",Toast.LENGTH_SHORT).show();
         setCurrentLocationMarker();
+    }
+
+    @Override
+    public void onLocationChanged(Location location){
+        //if (location.getLatitude() + location.getLongitude() ){
+        Notify("Title","This is a test"); //TODO: Only notify if you are close to destination
+        //}
     }
 
 }
