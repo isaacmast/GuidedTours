@@ -32,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -62,6 +63,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Tour EMU;
 
+    private Destination Quad;
+    private Destination Caf;
+    private Destination Hill;
+    private Destination SC;
+    private Destination Library;
+
     //**************************************************************
     // Activity lifecycle methods
     //****************************************************************
@@ -79,9 +86,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //for testing purposes
         EMU = new Tour(1,"EMU","Significant places around EMU",(float)38.450999,(float)-78.878997);
         //db.insertTour(EMU); //need this method
-        db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
+        //db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
+        //db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
         //would call setDestinationMarkers(EMU) here
+        Quad = new Destination(1,1,"Quad","This is where the main undergraduate dorms are.",(float)38.472000,(float)-78.877306);
+        Hill = new Destination(1,2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383);
+        Caf = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.471730,(float)-78.879643);
+        SC = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.470007,(float) -78.878113);
+        Library = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.470272, (float)-78.878997);
     }
 
     @Override
@@ -126,7 +138,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //****************************************************************
     private void updateMap(){
         if (googleApiClient.isConnected()) {
-            setCurrentLocationMarker();
+            //setCurrentLocationMarker();
+            dummySetDestinationMarkers();
         }
     }
 
@@ -158,9 +171,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
-                                .title("You are here"))
-                                .setAlpha(.1f);//set alpha so it is its own color
-
+                                .title("You are here")
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                /*
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
@@ -170,8 +183,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return false;
                     }
                 });
+                */
             }
         }
+    }
+    /*
+    This method is here to just place pins without using the database
+     */
+    public void dummySetDestinationMarkers() {
+        map.clear();
+        map.addMarker(    // add new marker
+                new MarkerOptions()
+                        .position(new LatLng(Quad.getLatitude(),
+                                Quad.getLongitude()))
+        );
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Notify("Title", "This is a test");
+                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                startActivity(descIntent);
+                return false;
+            }
+        });
+        map.addMarker(    // add new marker
+                new MarkerOptions()
+                        .position(new LatLng(Hill.getLatitude(),
+                                Hill.getLongitude()))
+        );
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Notify("Title", "This is a test");
+                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                startActivity(descIntent);
+                return false;
+            }
+        });
+        map.addMarker(    // add new marker
+                new MarkerOptions()
+                        .position(new LatLng(Caf.getLatitude(),
+                                Caf.getLongitude()))
+        );
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Notify("Title", "This is a test");
+                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                startActivity(descIntent);
+                return false;
+            }
+        });
+        map.addMarker(    // add new marker
+                new MarkerOptions()
+                        .position(new LatLng(SC.getLatitude(),
+                                SC.getLongitude()))
+        );
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Notify("Title", "This is a test");
+                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                startActivity(descIntent);
+                return false;
+            }
+        });
+        map.addMarker(    // add new marker
+                new MarkerOptions()
+                        .position(new LatLng(Library.getLatitude(),
+                                Library.getLongitude()))
+        );
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Notify("Title", "This is a test");
+                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                startActivity(descIntent);
+                return false;
+            }
+        });
+        setCurrentLocationMarker();
     }
     /*
     Given a list of destinations this will set a marker for each one and move the camera to the primary destination
@@ -268,7 +359,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         Toast.makeText(this,"Map ready",Toast.LENGTH_SHORT).show();
-        setCurrentLocationMarker();
+        //setCurrentLocationMarker();
+        dummySetDestinationMarkers();
     }
 
 }
