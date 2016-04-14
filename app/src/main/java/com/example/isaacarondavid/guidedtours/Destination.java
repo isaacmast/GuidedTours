@@ -19,7 +19,7 @@ public class Destination {
 	 * @param tourId - the id number of the Tour that it's associated with
 	 * @param destinationId - the Destination object's id number
 	 * @param name - the name of the Destination
-	 * @param description - a detailed information about the Destination
+	 * @param description - detailed information about the Destination
 	 * @param latitude - the latitude coordinate of the Destination
 	 * @param longitude - the longitude coordinate of the Destination
 	 */
