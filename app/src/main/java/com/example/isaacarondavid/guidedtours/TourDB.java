@@ -240,7 +240,8 @@ public class TourDB {
 	}
 
 	/**
-	 * Inserts a new row into the Destination table
+	/**
+	 * Inserts a new row into the Destination table by creating a new Destination
 	 * @param destination - the destination to be inserted into table
 	 * @return rowID - the row ID of the newly inserted row, or -1 if an error occurred
 	 */
