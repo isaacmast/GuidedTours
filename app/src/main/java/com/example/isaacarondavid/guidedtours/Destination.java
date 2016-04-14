@@ -6,11 +6,11 @@ package com.example.isaacarondavid.guidedtours;
  */
 public class Destination {
 	private int tourId;
-    private int destinationId;
-    private String name;
+	private int destinationId;
+	private String name;
 	private String description;
-    private float latitude;
-    private float longitude;
+	private float latitude;
+	private float longitude;
 
 	/**
 	 * Constructs a new Destination object with all of its values
@@ -21,13 +21,13 @@ public class Destination {
 	 * @param latitude - the latitude coordinate of the Destination
 	 * @param longitude - the longitude coordinate of the Destination
 	 */
-    public Destination(int tourId, int destinationId, String name, String description, float latitude, float longitude) {
-        this.tourId = tourId;
-        this.destinationId = destinationId;
-        this.name = name;
-        this.description = description;
-        this.latitude = latitude;
-        this.longitude = longitude;
+	public Destination(int tourId, int destinationId, String name, String description, float latitude, float longitude) {
+		this.tourId = tourId;
+		this.destinationId = destinationId;
+		this.name = name;
+		this.description = description;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	/**
@@ -50,9 +50,9 @@ public class Destination {
 	 * Retrieves the id number of the Destination
 	 * @return destinationId - the Destination id number
 	 */
-    public int getDestinationId() {
-        return this.destinationId;
-    }
+	public int getDestinationId() {
+		return this.destinationId;
+	}
 
 	/**
 	 * Sets the id number of the Destination
@@ -98,9 +98,9 @@ public class Destination {
 	 * Retrieves the latitude coordinate of the Destination
 	 * @return latitude - the Destination latitude coordinate
 	 */
-    public float getLatitude() {
-        return this.latitude;
-    }
+	public float getLatitude() {
+		return this.latitude;
+	}
 
 	/**
 	 * Sets the latitude coordinate of the Destination
@@ -114,9 +114,9 @@ public class Destination {
 	 * Retrieves the longitude coordinate of the Destination
 	 * @return longitude - the Destination longitude coordinate
 	 */
-    public float getLongitude() {
-        return this.longitude;
-    }
+	public float getLongitude() {
+		return this.longitude;
+	}
 
 	/**
 	 * Sets the longitude coordinate of the Destination
@@ -130,7 +130,7 @@ public class Destination {
 	 * {@inheritDoc}
 	 */
     @Override
-    public String toString(){
-        return this.name;
-    }
+	public String toString(){
+		return this.name;
+	}
 }
