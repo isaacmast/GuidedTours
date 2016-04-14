@@ -66,9 +66,9 @@ public class Destination {
 	 * Retrieves the name of the Destination
 	 * @return name - the Destination name
 	 */
-    public String getName(){
-        return this.name;
-    }
+	public String getName(){
+		return this.name;
+	}
 
 	/**
 	 * Sets the name of the Destination
@@ -129,7 +129,7 @@ public class Destination {
 	/**
 	 * {@inheritDoc}
 	 */
-    @Override
+	@Override
 	public String toString(){
 		return this.name;
 	}
