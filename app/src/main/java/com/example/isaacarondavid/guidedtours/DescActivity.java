@@ -13,6 +13,8 @@ import android.widget.Toast;
  * Created by aronharder on 3/31/16.
  */
 public class DescActivity extends Activity implements OnClickListener {
+    //TODO: add a "Start from here" button that allows the user to start the tour in the middle
+    //NOTE: take out these 2 lines if github won't sync
     private TextView title;
     private TextView description;
     private Button backToMaps;
@@ -25,10 +27,11 @@ public class DescActivity extends Activity implements OnClickListener {
         title = (TextView) findViewById(R.id.title);
         description = (TextView) findViewById(R.id.description);
         backToMaps = (Button) findViewById(R.id.backToMaps);
-        //Toast.makeText(this, backToMaps.getText(), Toast.LENGTH_SHORT).show();
         backToMaps.setOnClickListener(this);
         mapsIntent = new Intent(getApplicationContext(),
                 MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        title.setText(getIntent().getStringExtra("Title"));
     }
 
     @Override

@@ -203,69 +203,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 new MarkerOptions()
                         .position(new LatLng(Quad.getLatitude(),
                                 Quad.getLongitude()))
+                        .title("Quad")
         );
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Notify("Title", "This is a test");
-                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                startActivity(descIntent);
-                return false;
-            }
-        });
         map.addMarker(    // add new marker
                 new MarkerOptions()
                         .position(new LatLng(Hill.getLatitude(),
                                 Hill.getLongitude()))
+                        .title("Hill")
         );
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Notify("Title", "This is a test");
-                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                startActivity(descIntent);
-                return false;
-            }
-        });
         map.addMarker(    // add new marker
                 new MarkerOptions()
                         .position(new LatLng(Caf.getLatitude(),
                                 Caf.getLongitude()))
+                        .title("Caf")
         );
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Notify("Title", "This is a test");
-                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                startActivity(descIntent);
-                return false;
-            }
-        });
         map.addMarker(    // add new marker
                 new MarkerOptions()
                         .position(new LatLng(SC.getLatitude(),
                                 SC.getLongitude()))
+                        .title("SC")
         );
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Notify("Title", "This is a test");
-                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                startActivity(descIntent);
-                return false;
-            }
-        });
         map.addMarker(    // add new marker
                 new MarkerOptions()
                         .position(new LatLng(Library.getLatitude(),
                                 Library.getLongitude()))
+                        .title("Library")
         );
+
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Notify("Title", "This is a test");
-                Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                startActivity(descIntent);
+                if (!marker.getTitle().equals("You are here")) {
+                    Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                    descIntent.putExtra("Title", marker.getTitle());
+                    startActivity(descIntent);
+                }
                 return false;
             }
         });
@@ -282,13 +254,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             new MarkerOptions()
                                 .position(new LatLng(destinations.get(i).getLatitude(),
                                         destinations.get(i).getLongitude()))
+                                .title(destinations.get(i).getName())
                                 );
 
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
-                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                        startActivity(descIntent);
+                        if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
+                            Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                            descIntent.putExtra("Title", marker.getTitle());
+                            startActivity(descIntent);
+                        }
                         return false;
                     }
                 });
