@@ -107,7 +107,7 @@ public class TourDB {
 		public void onCreate(SQLiteDatabase db) {
 			// create tables
 			db.execSQL(CREATE_TOUR_TABLE);
-			//db.execSQL(CREATE_DESTINATION_TABLE);
+			db.execSQL(CREATE_DESTINATION_TABLE);
 		}
 
 		/**
