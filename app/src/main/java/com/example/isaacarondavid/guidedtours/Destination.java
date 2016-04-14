@@ -5,6 +5,8 @@ package com.example.isaacarondavid.guidedtours;
  * Created by davidnester on 4/1/16.
  */
 public class Destination {
+
+	// declare instance variables
 	private int tourId;
 	private int destinationId;
 	private String name;
