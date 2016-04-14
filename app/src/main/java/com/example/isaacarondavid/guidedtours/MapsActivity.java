@@ -94,7 +94,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),3,"Caf","This is where all students eat located under Northlawn.",(float)38.471730,(float)-78.879643));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),4,"SC","This building was newly renovated in 2015 and has all of our science labs.",(float)38.470007,(float) -78.878113));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(),5,"Caf","Sadie Hartler Library: where students go to study.",(float)38.470272, (float)-78.878997));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),5,"Library","Sadie Hartler Library: where students go to study.",(float)38.470272, (float)-78.878997));
         //would call setDestinationMarkers(EMU) here
         Quad = new Destination(1,1,"Quad","This is where the main undergraduate dorms are.",(float)38.472000,(float)-78.877306);
         Hill = new Destination(1,2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383);
