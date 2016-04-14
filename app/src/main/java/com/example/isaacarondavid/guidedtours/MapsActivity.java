@@ -62,7 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private TourDB db;
 
-    private Tour EMU;
+    private Tour main;
 
     private Destination Quad;
     private Destination Caf;
@@ -88,16 +88,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //for testing purposes
-        EMU = new Tour(1,"EMU","Significant places around EMU",(float)38.450999,(float)-78.878997);
-        //db.insertTour(EMU); //need this method
-        //db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
-        //db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
+        main = new Tour(1,"EMU","Significant places around EMU",(float)38.450999,(float)-78.878997);
+        db.insertTour(main); //need this method
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),3,"Caf","This is where all students eat located under Northlawn.",(float)38.471730,(float)-78.879643));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),4,"SC","This building was newly renovated in 2015 and has all of our science labs.",(float)38.470007,(float) -78.878113));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),5,"Caf","Sadie Hartler Library: where students go to study.",(float)38.470272, (float)-78.878997));
         //would call setDestinationMarkers(EMU) here
         Quad = new Destination(1,1,"Quad","This is where the main undergraduate dorms are.",(float)38.472000,(float)-78.877306);
         Hill = new Destination(1,2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383);
         Caf = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.471730,(float)-78.879643);
-        SC = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.470007,(float) -78.878113);
-        Library = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.470272, (float)-78.878997);
+        SC = new Destination(1,3,"SC","This building was newly renovated in 2015 and has all of our science labs.",(float)38.470007,(float) -78.878113);
+        Library = new Destination(1,3,"Caf","Sadie Hartler Library: where students go to study.",(float)38.470272, (float)-78.878997);
 
         locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_UPDATE_INTERVAL);
@@ -146,7 +149,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void updateMap(){
         if (googleApiClient.isConnected()) {
             //setCurrentLocationMarker();
-            dummySetDestinationMarkers();
+            //dummySetDestinationMarkers();
+            setDestinationMarkers(main);
         }
     }
 
@@ -180,17 +184,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         location.getLongitude()))
                                 .title("You are here")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                /*
-                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        Notify("Title","This is a test");
-                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                        startActivity(descIntent);
-                        return false;
-                    }
-                });
-                */
             }
         }
     }
@@ -374,7 +367,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map = googleMap;
         Toast.makeText(this,"Map ready",Toast.LENGTH_SHORT).show();
         //setCurrentLocationMarker();
-        dummySetDestinationMarkers();
+        //dummySetDestinationMarkers();
+        setDestinationMarkers(main);
     }
 
     @Override
