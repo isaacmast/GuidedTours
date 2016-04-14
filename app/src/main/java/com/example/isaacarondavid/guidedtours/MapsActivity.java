@@ -245,24 +245,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (int i = 0; i < destinations.size(); i++){
                     map.addMarker(    // add new marker
                             new MarkerOptions()
-                                .position(new LatLng(destinations.get(i).getLatitude(),
-                                        destinations.get(i).getLongitude()))
-                                .title(destinations.get(i).getName())
-                                );
-
-                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
-                            Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                            descIntent.putExtra("Title", marker.getTitle());
-                            startActivity(descIntent);
-                        }
-                        return false;
-                    }
-                });
-
+                                    .position(new LatLng(destinations.get(i).getLatitude(),
+                                            destinations.get(i).getLongitude()))
+                                    .title(destinations.get(i).getName())
+                    );
             }
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
+                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
+                        descIntent.putExtra("Title", marker.getTitle());
+                        startActivity(descIntent);
+                    }
+                    return false;
+                }
+             });
             setCurrentLocationMarker();
             //TODO:http://stackoverflow.com/questions/14828217/android-map-v2-zoom-to-show-all-the-markers
             //move camera to primary destination
