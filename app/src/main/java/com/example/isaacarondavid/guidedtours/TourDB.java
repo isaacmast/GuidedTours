@@ -63,9 +63,9 @@ public class TourDB {
 	public static final String CREATE_TOUR_TABLE = 
 		"CREATE TABLE " + TOUR_TABLE + " (" + 
 		TOUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-		TOUR_NAME + " TEXT NOT NULL UNIQUE" + 
-		TOUR_DESCRIPTION + " TEXT NOT NULL" + 
-		TOUR_PRIMARY_LATITUDE + " REAL NOT NULL" + 
+		TOUR_NAME + " TEXT NOT NULL UNIQUE, " + 
+		TOUR_DESCRIPTION + " TEXT NOT NULL, " + 
+		TOUR_PRIMARY_LATITUDE + " REAL NOT NULL, " + 
 		TOUR_PRIMARY_LONGITUDE + " REAL NOT NULL);";
 
 	public static final String CREATE_DESTINATION_TABLE = 
@@ -107,6 +107,7 @@ public class TourDB {
 		public void onCreate(SQLiteDatabase db) {
 			// create tables
 			db.execSQL(CREATE_TOUR_TABLE);
+			//db.execSQL(CREATE_DESTINATION_TABLE);
 		}
 
 		/**
