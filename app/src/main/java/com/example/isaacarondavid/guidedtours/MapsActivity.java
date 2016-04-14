@@ -295,7 +295,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
             setCurrentLocationMarker();
-
+            //TODO:http://stackoverflow.com/questions/14828217/android-map-v2-zoom-to-show-all-the-markers
             //move camera to primary destination
             map.animateCamera(
                 CameraUpdateFactory.newCameraPosition(
