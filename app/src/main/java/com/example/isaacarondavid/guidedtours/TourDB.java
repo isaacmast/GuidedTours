@@ -241,9 +241,9 @@ public class TourDB {
 
 	/**
 	/**
-	 * Inserts a new row into the Destination table by creating a new Destination
+	 * Inserts a new row into the Destination table
 	 * @param destination - the destination to be inserted into table
-	 * @return rowID - the row ID of the newly inserted row, or -1 if an error occurred
+	 * @return rowID - the row ID of the newly inserted row (-1 if an error occurred)
 	 */
 	public long insertDestination(Destination destination) {
 		ContentValues cv = new ContentValues();
