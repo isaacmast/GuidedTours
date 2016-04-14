@@ -63,7 +63,10 @@ public class TourDB {
 	public static final String CREATE_TOUR_TABLE = 
 		"CREATE TABLE " + TOUR_TABLE + " (" + 
 		TOUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-		TOUR_NAME + " TEXT NOT NULL UNIQUE);";
+		TOUR_NAME + " TEXT NOT NULL UNIQUE" + 
+		TOUR_DESCRIPTION + " TEXT NOT NULL" + 
+		TOUR_PRIMARY_LATITUDE + " REAL NOT NULL" + 
+		TOUR_PRIMARY_LONGITUDE + " REAL NOT NULL);";
 
 	public static final String CREATE_DESTINATION_TABLE = 
 		"CREATE TABLE " + DESTINATION_TABLE + " (" + 
@@ -240,9 +243,29 @@ public class TourDB {
 	}
 
 	/**
+	 * Inserts a new row into the Tour table
+	 * @param tour - the tour to be inserted into table
+	 * @return rowID - the row of the newly inserted row (-1 if error occurred)
+	 */
+	 public long insertTour(Tour tour) {
+		ContentValues cv = new ContentValues();
+		cv.put(TOUR_ID, tour.getId());
+		cv.put(TOUR_NAME, tour.getName());
+		cv.put(TOUR_DESCRIPTION, tour.getDescription());
+		cv.put(TOUR_PRIMARY_LATITUDE, tour.getPrimaryLat());
+		cv.put(TOUR_PRIMARY_LONGITUDE, tour.getPrimaryLong());
+
+		this.openWriteableDB();
+		long rowID = db.insert(TOUR_TABLE, null, cv);
+		this.closeDB();
+
+		return rowID;
+	 }
+
+	/**
 	 * Inserts a new row into the Destination table
 	 * @param destination - the destination to be inserted into table
-	 * @return rowID - the row ID of the newly inserted row, or -1 if an error occurred
+	 * @return rowID - the row ID of the newly inserted row (-1 if an error occurred)
 	 */
 	public long insertDestination(Destination destination) {
 		ContentValues cv = new ContentValues();
