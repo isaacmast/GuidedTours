@@ -1,6 +1,7 @@
 package com.example.isaacarondavid.guidedtours;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -9,10 +10,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursorDriver;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQuery;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -29,6 +26,7 @@ import android.widget.Toast;
 import android.support.v4.content.ContextCompat;
 
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +34,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -45,13 +44,6 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.model.PolylineOptions;
-
-//Some possible locations for testing (EMU Tour)
-//EMU Quad - 38.472543, -78.877306
-//Science Center - 38.470007, -78.878113
-//Library - 38.470272, -78.878997
-//Caf - 38.471730, -78.879643
-//Hilltop - 38.471409, -78.882383
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ConnectionCallbacks,
         OnConnectionFailedListener, LocationListener {
@@ -64,11 +56,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Tour main;
 
-    private Destination Quad;
-    private Destination Caf;
-    private Destination Hill;
-    private Destination SC;
-    private Destination Library;
     private static final int UPDATE_INTERVAL = 5000; //5 seconds
     private static final int FASTEST_UPDATE_INTERVAL = 2000; //2 seconds
     private LocationRequest locationRequest;
@@ -86,21 +73,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
 
-
-        //for testing purposes
-        main = new Tour(1,"EMU","Significant places around EMU",(float)38.450999,(float)-78.878997);
-        db.insertTour(main); //need this method
-        db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472543,(float)-78.877306));
+        main = new Tour(1,"EMU","Significant places around EMU");
+        db.insertTour(main);
+        db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472000,(float)-78.877306));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),3,"Caf","This is where all students eat located under Northlawn.",(float)38.471730,(float)-78.879643));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),4,"SC","This building was newly renovated in 2015 and has all of our science labs.",(float)38.470007,(float) -78.878113));
         db.insertDestination(new Destination(db.getTour("EMU").getId(),5,"Library","Sadie Hartler Library: where students go to study.",(float)38.470272, (float)-78.878997));
-        //would call setDestinationMarkers(EMU) here
-        Quad = new Destination(1,1,"Quad","This is where the main undergraduate dorms are.",(float)38.472000,(float)-78.877306);
-        Hill = new Destination(1,2,"Hilltop","There is a great view of the city here.",(float)38.471409,(float)-78.882383);
-        Caf = new Destination(1,3,"Caf","This is where all students eat located under Northlawn.",(float)38.471730,(float)-78.879643);
-        SC = new Destination(1,3,"SC","This building was newly renovated in 2015 and has all of our science labs.",(float)38.470007,(float) -78.878113);
-        Library = new Destination(1,3,"Caf","Sadie Hartler Library: where students go to study.",(float)38.470272, (float)-78.878997);
 
         locationRequest = LocationRequest.create().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_UPDATE_INTERVAL);
@@ -149,12 +128,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void updateMap(){
         if (googleApiClient.isConnected()) {
             //setCurrentLocationMarker();
-            //dummySetDestinationMarkers();
             setDestinationMarkers(main);
         }
     }
 
-    private void setCurrentLocationMarker(){
+    private Marker setCurrentLocationMarker(){
+        Marker current;
         if (map != null) {
             if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
 
@@ -178,55 +157,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                 // add a marker for the current location
+                current =
                 map.addMarker(    // add new marker
                         new MarkerOptions()
                                 .position(new LatLng(location.getLatitude(),
                                         location.getLongitude()))
                                 .title("You are here")
                                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                return current;
             }
         }
+        return null;
     }
     /*
-    This method is here to just place pins without using the database
+    Given a list of destinations this will set a marker for each one and move the camera to the primary destination
      */
-    public void dummySetDestinationMarkers() {
+    public void setDestinationMarkers(Tour tour) {
         map.clear();
-        map.addMarker(    // add new marker
-                new MarkerOptions()
-                        .position(new LatLng(Quad.getLatitude(),
-                                Quad.getLongitude()))
-                        .title("Quad")
-        );
-        map.addMarker(    // add new marker
-                new MarkerOptions()
-                        .position(new LatLng(Hill.getLatitude(),
-                                Hill.getLongitude()))
-                        .title("Hill")
-        );
-        map.addMarker(    // add new marker
-                new MarkerOptions()
-                        .position(new LatLng(Caf.getLatitude(),
-                                Caf.getLongitude()))
-                        .title("Caf")
-        );
-        map.addMarker(    // add new marker
-                new MarkerOptions()
-                        .position(new LatLng(SC.getLatitude(),
-                                SC.getLongitude()))
-                        .title("SC")
-        );
-        map.addMarker(    // add new marker
-                new MarkerOptions()
-                        .position(new LatLng(Library.getLatitude(),
-                                Library.getLongitude()))
-                        .title("Library")
-        );
+        ArrayList<Destination> destinations = db.getDestinations(tour.getName());
+        List<Marker> markers = new ArrayList<Marker>();
+        Marker mark;
 
+        for (int i = 0; i < destinations.size(); i++) {
+            mark = map.addMarker(    // add new marker
+                    new MarkerOptions()
+                            .position(new LatLng(destinations.get(i).getLatitude(),
+                                    destinations.get(i).getLongitude()))
+                            .title(destinations.get(i).getName())
+            );
+            markers.add(mark);
+        }
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if (!marker.getTitle().equals("You are here")) {
+                if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
                     Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
                     descIntent.putExtra("Title", marker.getTitle());
                     startActivity(descIntent);
@@ -234,47 +198,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
-        setCurrentLocationMarker();
-    }
-    /*
-    Given a list of destinations this will set a marker for each one and move the camera to the primary destination
-     */
-    public void setDestinationMarkers(Tour tour) {
-            map.clear();
-            ArrayList<Destination> destinations = db.getDestinations(tour.getName());
-            for (int i = 0; i < destinations.size(); i++){
-                    map.addMarker(    // add new marker
-                            new MarkerOptions()
-                                    .position(new LatLng(destinations.get(i).getLatitude(),
-                                            destinations.get(i).getLongitude()))
-                                    .title(destinations.get(i).getName())
-                    );
-            }
-            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(Marker marker) {
-                    if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
-                        Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                        descIntent.putExtra("Title", marker.getTitle());
-                        startActivity(descIntent);
-                    }
-                    return false;
-                }
-             });
-            setCurrentLocationMarker();
-            //TODO:http://stackoverflow.com/questions/14828217/android-map-v2-zoom-to-show-all-the-markers
-            //move camera to primary destination
-            map.animateCamera(
-                CameraUpdateFactory.newCameraPosition(
-                        new CameraPosition.Builder()
-                                .target(new LatLng(tour.getPrimaryLat(),
-                                        tour.getPrimaryLong()))
-                                .zoom(16.5f)
-                                .bearing(0)
-                                .tilt(25)
-                                .build()));
-    }
+        markers.add(setCurrentLocationMarker());
 
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Marker marker : markers) {
+            builder.include(marker.getPosition());
+        }
+        LatLngBounds bounds = builder.build();
+        int padding = 50; // offset from edges of the map in pixels
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        //move camera to primary destination
+        map.animateCamera(cu);
+    }
     public void Notify(String notificationTitle, String notificationMessage){
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         @SuppressWarnings("deprecation")
@@ -341,7 +276,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map = googleMap;
         Toast.makeText(this,"Map ready",Toast.LENGTH_SHORT).show();
         //setCurrentLocationMarker();
-        //dummySetDestinationMarkers();
         setDestinationMarkers(main);
     }
 

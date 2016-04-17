@@ -10,23 +10,17 @@ public class Tour {
 	private int id;
 	private String name;
 	private String description;
-	private float primaryLat;
-	private float primaryLong;
 
 	/**
 	 * Constructs a new Tour object with all of its values
 	 * @param id - the id number of the Tour
 	 * @param name - the name of the Tour
 	 * @param description - detailed information about the Tour
-	 * @param lat - the primary latitude coordinate of the Tour
-	 * @param lon - the primary longitude coordinate of the Tour
 	 */
-	public Tour(int id, String name, String description, float lat, float lon){
+	public Tour(int id, String name, String description){
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.primaryLat = lat;
-		this.primaryLong = lon;
 	}
 
 	/**
@@ -76,39 +70,6 @@ public class Tour {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	/**
-	 * Retrieves the primary latitude coordinate of the Tour
-	 * @return primaryLat - the Tour primary latitude coordinate
-	 */
-	public float getPrimaryLat() {
-		return primaryLat;
-	}
-
-	/**
-	 * Sets the primary latitude coordinate of the Tour
-	 * @param lat - the new Tour primary latitude coordinate
-	 */
-	public void setPrimaryLat(float lat) {
-		this.primaryLat = lat;
-	}
-
-	/**
-	 * Retrieves the primary longitude coordinate of the Tour
-	 * @return primaryLong - the Tour primary longitude coordinate
-	 */
-	public float getPrimaryLong() {
-		return primaryLong;
-	}
-
-	/**
-	 * Sets the primary longitude coordinate of the Tour
-	 * @param lon - the new Tour primary longitude coordinate
-	 */
-	public void setPrimaryLong(float lon) {
-		this.primaryLong = lon;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
