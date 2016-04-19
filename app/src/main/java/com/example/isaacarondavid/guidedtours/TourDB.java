@@ -185,6 +185,36 @@ public class TourDB {
 	}
 
 	/**
+	 * Retrieves a destination from the destination table with a destinationId of id
+	 * @param id - the id of the destination to be retrieved
+	 * @return destination - the destination retrieved from the database
+	 */
+	public Destination getDestinationById(int id) {
+		String where = DESTINATION_ID + "? =";
+		String[] whereArgs = { Integer.toString(id) };
+
+		this.openReadableDB();
+		Cursor cursor = db.query(DESTINATION_TABLE, null, where, whereArgs, 
+			null, null, null);
+		Destination destination = null;
+		cursor.moveToFirst();
+		destination = new Destination(
+			cursor.getInt(DESTINATION_TOUR_ID_COL),
+			cursor.getInt(DESTINATION_ID_COL),
+			cursor.getString(DESTINATION_NAME_COL),
+			cursor.getString(DESTINATION_DESCRIPTION_COL),
+			cursor.getFloat(DESTINATION_LATITUDE_COL),
+			cursor.getFloat(DESTINATION_LONGITUDE_COL)
+		);
+		if (cursor != null) {
+			cursor.close();
+		}
+		this.closeDB();
+
+		return destination;
+	}
+
+	/**
 	 * Retrieves a tour of name tourName from the tour table
 	 * @param tourName - the name of the tour to be retrieved
 	 * @return tour - the tour of name tourName retrieved from the database
