@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.isaacarondavid.guidedtours" >
+    package="com.example.isaacarondavid.guidedtours">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -14,20 +14,19 @@
     <permission
         android:name="com.isaacarondavid.guidedtours.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-permission
-        android:name="com.isaacarondavid.guidedtours.permission.MAPS_RECEIVE" />
+
+    <uses-permission android:name="com.isaacarondavid.guidedtours.permission.MAPS_RECEIVE" />
 
     <!-- Set up other permissions -->
-    <uses-permission
-        android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="com.google.andoird.providers.gsf.permission.READ_GSERVICES" />
-    <!--<uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.andoird.providers.gsf.permission.READ_GSERVICES" />
+    <!--
+        <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
+    -->
+
 
     <!-- Maps API version 2 requires OpenGL ES version 2 -->
     <uses-feature
@@ -39,7 +38,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -55,16 +54,18 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" >
+            android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DescActivity" >
-            <!--android:label="@string/title_activity_desc" >-->
+        <activity android:name=".DescActivity">
+
+            <!-- android:label="@string/title_activity_desc" > -->
         </activity>
+        <activity android:name=".TourSelectActivity"></activity>
     </application>
 
 </manifest>
