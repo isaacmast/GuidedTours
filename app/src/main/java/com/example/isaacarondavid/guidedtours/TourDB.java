@@ -158,6 +158,8 @@ public class TourDB {
 		}
 	}
 
+// Destination methods
+
 	/**
 	 * Retrieves multiple rows from the destinations table
 	 * @param tourName - the name of the associated Tour with the retrieved destinations
@@ -215,33 +217,6 @@ public class TourDB {
 	}
 
 	/**
-	 * Retrieves a tour of name tourName from the tour table
-	 * @param tourName - the name of the tour to be retrieved
-	 * @return tour - the tour of name tourName retrieved from the database
-	 */
-	public Tour getTour(String tourName) {
-		String where = TOUR_NAME + "= ?";
-		String[] whereArgs = {tourName};
-
-		openReadableDB();
-		Cursor cursor = db.query(TOUR_TABLE, null, where, whereArgs, 
-			null, null, null);
-		Tour tour = null;
-		cursor.moveToFirst();
-		tour = new Tour(
-			cursor.getInt(TOUR_ID_COL), 
-			cursor.getString(TOUR_NAME_COL),
-			cursor.getString(TOUR_DESCRIPTION_COL)
-		);
-		if (cursor != null) {
-			cursor.close();
-		}
-		this.closeDB();
-
-		return tour;
-	}
-
-	/**
 	 * Retrieves the current destination from the Cursor object
 	 * @param cursor - the Cursor object that contains the results from a DB query
 	 * @return destination - the destination pointed at by cursor
@@ -268,24 +243,6 @@ public class TourDB {
 			}
 		}
 	}
-
-	/**
-	 * Inserts a new row into the Tour table
-	 * @param tour - the tour to be inserted into table
-	 * @return rowID - the row of the newly inserted row (-1 if error occurred)
-	 */
-	 public long insertTour(Tour tour) {
-		ContentValues cv = new ContentValues();
-		cv.put(TOUR_ID, tour.getId());
-		cv.put(TOUR_NAME, tour.getName());
-		cv.put(TOUR_DESCRIPTION, tour.getDescription());
-
-		this.openWriteableDB();
-		long rowID = db.insert(TOUR_TABLE, null, cv);
-		this.closeDB();
-
-		return rowID;
-	 }
 
 	/**
 	 * Inserts a new row into the Destination table
@@ -346,6 +303,53 @@ public class TourDB {
 
 		return rowCount;
 	}
+
+// Tour methods
+
+	/**
+	 * Retrieves a tour of name tourName from the tour table
+	 * @param tourName - the name of the tour to be retrieved
+	 * @return tour - the tour of name tourName retrieved from the database
+	 */
+	public Tour getTour(String tourName) {
+		String where = TOUR_NAME + "= ?";
+		String[] whereArgs = {tourName};
+
+		openReadableDB();
+		Cursor cursor = db.query(TOUR_TABLE, null, where, whereArgs, 
+			null, null, null);
+		Tour tour = null;
+		cursor.moveToFirst();
+		tour = new Tour(
+			cursor.getInt(TOUR_ID_COL), 
+			cursor.getString(TOUR_NAME_COL),
+			cursor.getString(TOUR_DESCRIPTION_COL)
+		);
+		if (cursor != null) {
+			cursor.close();
+		}
+		this.closeDB();
+
+		return tour;
+	}
+
+	/**
+	 * Inserts a new row into the Tour table
+	 * @param tour - the tour to be inserted into table
+	 * @return rowID - the row of the newly inserted row (-1 if error occurred)
+	 */
+	 public long insertTour(Tour tour) {
+		ContentValues cv = new ContentValues();
+		cv.put(TOUR_ID, tour.getId());
+		cv.put(TOUR_NAME, tour.getName());
+		cv.put(TOUR_DESCRIPTION, tour.getDescription());
+
+		this.openWriteableDB();
+		long rowID = db.insert(TOUR_TABLE, null, cv);
+		this.closeDB();
+
+		return rowID;
+	 }
 
 	/**
 	 * Updates the Tour table in the DB
