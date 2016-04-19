@@ -190,7 +190,7 @@ public class TourDB {
 	 * @return destination - the destination retrieved from the database
 	 */
 	public Destination getDestinationById(int id) {
-		String where = DESTINATION_ID + "? =";
+		String where = DESTINATION_ID + "= ?";
 		String[] whereArgs = { Integer.toString(id) };
 
 		this.openReadableDB();
