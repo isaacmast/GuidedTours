@@ -2,6 +2,7 @@ package com.example.isaacarondavid.guidedtours;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -53,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient googleApiClient;
 
     private TourDB db;
+    private HashMap<Marker, Integer> markerIds = new HashMap<>();
 
     private Tour main;
 
@@ -186,13 +188,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .title(destinations.get(i).getName())
             );
             markers.add(mark);
+            markerIds.put(mark,destinations.get(i).getDestinationId());
         }
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
                     Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                    descIntent.putExtra("Title", marker.getTitle());
+                    descIntent.putExtra("ID", markerIds.get(marker));
                     startActivity(descIntent);
                 }
                 return false;
