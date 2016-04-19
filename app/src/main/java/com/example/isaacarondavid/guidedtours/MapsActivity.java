@@ -195,7 +195,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 if (!marker.getTitle().equals("You are here")) { //Don't open description page if user clicks on their marker
                     Intent descIntent = new Intent(getApplicationContext(), DescActivity.class);
-                    descIntent.putExtra("ID", markerIds.get(marker));
+                    Destination d = db.getDestinationById(markerIds.get(marker));
+                    descIntent.putExtra("Title", d.getName());
+                    descIntent.putExtra("Description", d.getDescription());
                     startActivity(descIntent);
                 }
                 return false;
