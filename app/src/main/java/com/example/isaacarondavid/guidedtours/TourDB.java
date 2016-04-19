@@ -264,7 +264,7 @@ public class TourDB {
 	 */
 	public long insertDestination(Destination destination) {
 		ContentValues cv = new ContentValues();
-		cv.put(DESITNATION_ID, destination.getDestinationId());
+		cv.put(DESTINATION_ID, destination.getDestinationId());
 		cv.put(DESTINATION_TOUR_ID, destination.getTourId());
 		cv.put(DESTINATION_NAME, destination.getName());
 		cv.put(DESTINATION_DESCRIPTION, destination.getDescription());
