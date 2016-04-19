@@ -281,7 +281,7 @@ public class TourDB {
 	/**
 	 * Updates the Destination table in the DB 
 	 * @param destination - the destination to update the DB with
-	 * @return rowCount - the number of rows affected by the update
+	 * @return rowCount - the number of rows effected by the update
 	 */
 	public int updateDestination(Destination destination) {
 		ContentValues cv = new ContentValues();
@@ -304,7 +304,7 @@ public class TourDB {
 	/**
 	 * Deletes the destination with destinationId of id from DB
 	 * @param id - the destinationId of the destination to be deleted from DB
-	 * @return rowCount - the number of rows affected by the deletion
+	 * @return rowCount - the number of rows effected by the deletion
 	 */
 	public int deleteDestination(long id) {
 		String where = DESTINATION_ID + "= ?";
@@ -312,6 +312,27 @@ public class TourDB {
 
 		this.openWriteableDB();
 		int rowCount = db.delete(DESTINATION_TABLE, where, whereArgs);
+		this.closeDB();
+
+		return rowCount;
+	}
+
+	/**
+	 * Updates the Tour table in the DB
+	 * @param tour - the tour to update the DB with
+	 * @return rowCount - the number of rows effected by the update
+	 */
+	public int updateTour(Tour tour) {
+		ContentValues cv = new ContentValues();
+		cv.put(TOUR_ID, tour.getId());
+		cv.put(TOUR_NAME, tour.getName());
+		cv.put(TOUR_DESCRIPTION, tour.getDescription());
+
+		String where = TOUR_ID + "= ?";
+		String[] whereArgs = { String.valueOf(tour.getId()) };
+
+		this.openWriteableDB();
+		int rowCount = db.update(TOUR_TABLE, cv, where, whereArgs);
 		this.closeDB();
 
 		return rowCount;
