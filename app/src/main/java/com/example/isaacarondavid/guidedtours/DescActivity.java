@@ -31,7 +31,7 @@ public class DescActivity extends Activity implements OnClickListener {
         mapsIntent = new Intent(getApplicationContext(),
                 MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        title.setText(getIntent().getStringExtra("Title"));
+        title.setText(String.valueOf(getIntent().getIntExtra("ID",-1)));
     }
 
     @Override
