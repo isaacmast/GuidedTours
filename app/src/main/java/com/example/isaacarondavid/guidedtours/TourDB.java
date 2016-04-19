@@ -41,11 +41,11 @@ public class TourDB {
 	// destination table constants
 	public static final String DESTINATION_TABLE = "destination";
 
-	public static final String DESTINATION_ID = "_id";
-	public static final int DESTINATION_ID_COL = 0;
-
 	public static final String DESTINATION_TOUR_ID = "tour_id";
-	public static final int DESTINATION_TOUR_ID_COL = 1;
+	public static final int DESTINATION_TOUR_ID_COL = 0;
+
+	public static final String DESTINATION_ID = "_id";
+	public static final int DESTINATION_ID_COL = 1;
 
 	public static final String DESTINATION_NAME = "destination_name";
 	public static final int DESTINATION_NAME_COL = 2;
