@@ -199,6 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Destination d = db.getDestinationById(markerIds.get(marker));
                     descIntent.putExtra("Title", d.getName());
                     descIntent.putExtra("Description", d.getDescription());
+                    descIntent.putExtra("Tour Name",main.getName());
                     startActivity(descIntent);
                 }
                 return false;

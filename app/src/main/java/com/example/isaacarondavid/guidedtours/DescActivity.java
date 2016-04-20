@@ -30,6 +30,7 @@ public class DescActivity extends Activity implements OnClickListener {
         backToMaps.setOnClickListener(this);
         mapsIntent = new Intent(getApplicationContext(),
                 MapsActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mapsIntent.putExtra("Tour Name",getIntent().getStringExtra("Tour Name"));
 
         title.setText(getIntent().getStringExtra("Title"));
         description.setText(getIntent().getStringExtra("Description"));
