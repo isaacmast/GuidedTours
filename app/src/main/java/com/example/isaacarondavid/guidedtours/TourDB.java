@@ -223,7 +223,7 @@ public class TourDB {
 	 * @param tourName - the name of the tour to be retrieved
 	 * @return tour - the tour of name tourName retrieved from the database
 	 */
-	public Tour getTour(String tourName) {
+	/*public Tour getTour(String tourName) {
 		String where = TOUR_NAME + "= ?";
 		String[] whereArgs = {tourName};
 
@@ -243,21 +243,9 @@ public class TourDB {
 		this.closeDB();
 
 		return tour;
-	}
+	}*/
 
-	public String[] getTourNames() {
-		String[] names = new String[50];//size was arbitrarily set
-		openReadableDB();
-		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);
-		int i = 0;
-		while (cursor.moveToNext()) {
-			names[i] = cursor.getString(TOUR_NAME_COL);
-			i++;
-		}
-		this.closeDB();
 
-		return names;
-	}
 
 	/**
 >>>>>>> Stashed changes
@@ -414,5 +402,18 @@ public class TourDB {
 		this.closeDB();
 
 		return rowCount;
+	}
+	public String[] getTourNames() {
+		String[] names = new String[50];//size was arbitrarily set
+		openReadableDB();
+		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);
+		int i = 0;
+		while (cursor.moveToNext()) {
+			names[i] = cursor.getString(TOUR_NAME_COL);
+			i++;
+		}
+		this.closeDB();
+
+		return names;
 	}
 }
