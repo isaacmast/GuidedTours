@@ -404,7 +404,7 @@ public class TourDB {
 		return rowCount;
 	}
 	public String[] getTourNames() {
-		String[] names = new String[50];//size was arbitrarily set
+		String[] names = new String[2];//size was arbitrarily set
 		openReadableDB();
 		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);
 		int i = 0;
