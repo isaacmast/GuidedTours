@@ -75,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
-
+        //main = db.getTour(getIntent().getStringExtra("Tour Name"));
         main = new Tour(1,"EMU","Significant places around EMU");
         db.insertTour(main);
         db.insertDestination(new Destination(db.getTour("EMU").getId(),1,"Quad","This is where the main undergraduate dorms are.",(float)38.472000,(float)-78.877306));

@@ -217,6 +217,50 @@ public class TourDB {
 	}
 
 	/**
+<<<<<<< Updated upstream
+=======
+	 * Retrieves a tour of name tourName from the tour table
+	 * @param tourName - the name of the tour to be retrieved
+	 * @return tour - the tour of name tourName retrieved from the database
+	 */
+	public Tour getTour(String tourName) {
+		String where = TOUR_NAME + "= ?";
+		String[] whereArgs = {tourName};
+
+		openReadableDB();
+		Cursor cursor = db.query(TOUR_TABLE, null, where, whereArgs, 
+			null, null, null);
+		Tour tour = null;
+		cursor.moveToFirst();
+		tour = new Tour(
+			cursor.getInt(TOUR_ID_COL), 
+			cursor.getString(TOUR_NAME_COL),
+			cursor.getString(TOUR_DESCRIPTION_COL)
+		);
+		if (cursor != null) {
+			cursor.close();
+		}
+		this.closeDB();
+
+		return tour;
+	}
+
+	public String[] getTourNames() {
+		String[] names = new String[50];//size was arbitrarily set
+		openReadableDB();
+		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);
+		int i = 0;
+		while (cursor.moveToNext()) {
+			names[i] = cursor.getString(TOUR_NAME_COL);
+			i++;
+		}
+		this.closeDB();
+
+		return names;
+	}
+
+	/**
+>>>>>>> Stashed changes
 	 * Retrieves the current destination from the Cursor object
 	 * @param cursor - the Cursor object that contains the results from a DB query
 	 * @return destination - the destination pointed at by cursor
@@ -279,7 +323,7 @@ public class TourDB {
 		cv.put(DESTINATION_LONGITUDE, destination.getLongitude());
 
 		String where = DESTINATION_ID + "= ?";
-		String[] whereArgs = { String.valueOf(destination.getDestinationId()) };
+		String[] whereArgs = { String.valueOf(destination.getDestinationId())};
 
 		this.openWriteableDB();
 		int rowCount = db.update(DESTINATION_TABLE, cv, where, whereArgs);
@@ -295,7 +339,7 @@ public class TourDB {
 	 */
 	public int deleteDestination(long id) {
 		String where = DESTINATION_ID + "= ?";
-		String[] whereArgs = { String.valueOf(id) };
+		String[] whereArgs = {String.valueOf(id)};
 
 		this.openWriteableDB();
 		int rowCount = db.delete(DESTINATION_TABLE, where, whereArgs);
@@ -363,7 +407,7 @@ public class TourDB {
 		cv.put(TOUR_DESCRIPTION, tour.getDescription());
 
 		String where = TOUR_ID + "= ?";
-		String[] whereArgs = { String.valueOf(tour.getId()) };
+		String[] whereArgs = { String.valueOf(tour.getId())};
 
 		this.openWriteableDB();
 		int rowCount = db.update(TOUR_TABLE, cv, where, whereArgs);

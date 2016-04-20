@@ -65,7 +65,13 @@
 
             <!-- android:label="@string/title_activity_desc" > -->
         </activity>
-        <activity android:name=".TourSelectActivity"></activity>
+        <activity android:name=".TourSelectActivity">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
     </application>
 
 </manifest>
