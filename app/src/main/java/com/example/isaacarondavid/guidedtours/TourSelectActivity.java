@@ -40,11 +40,21 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 10, "Hesston", "Hesston College, Hesston, KS", (float) 38.13324, (float) -97.432913));
 
         db.insertTour(new Tour(3, "Harrisonburg Area Hiking", "Hiking locations around Harrisonburg"));
-        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 11, "Hone Quarry", "Hone Quarry Campground with with Lover's Leap and Hidden Rocks", (float) 38.457906, (float) -79.133355));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 11, "Hone Quarry", "Hone Quarry Campground with Lover's Leap and Hidden Rocks", (float) 38.457906, (float) -79.133355));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 12, "Fridley Gap", "Fridley Gap has beautiful hikes that overlook Harrisonburg", (float) 38.496775, (float) -78.709348));
-        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 13, "Hone Quarry", "Hone Quarry Campground with with Lover's Leap and Hidden Rocks", (float) 38.571722, (float) -79.1144871));
-        tours = db.getTourNames();
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 13, "Switzer Lake", "Hiking Area right before the West Virginia border", (float) 38.571722, (float) -79.145149));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 14, "Reddish Knob", "Highest Point in Virginia with an amazing view", (float) 38.462244, (float) -79.241747));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 15, "Shenandoah National Park", "Skyline Drive is dotted with countless beuatiful overlooks and the Appalachian Trail", (float) 38.358598, (float) -78.546885));
 
+        db.insertTour(new Tour(4, "Washington DC National Mall", "Famous buildings on the National Mall"));
+        db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 16, "Washington Monument", "A large Obelisk honoring the First president of the USA", (float) 38.889461, (float) -77.035281));
+        db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 17, "The White House", "Home of the American president", (float) 38.898586, (float) -77.036588));
+        db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 18, "Lincoln Memorial", "A tribute to Abraham Lincoln, 16th president of the United States", (float) 38.889284, (float) -77.049842));
+        db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 19, "WWII Memorial", "A memorial for those who fought in World War II", (float) 38.889442, (float) -77.040097));
+        db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 20, "US Capitol Building", "Home of Congress", (float) 38.889837, (float) -77.008628));
+        db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 21, "Library of Congress", "The World's Largest Library", (float) 38.888681, (float) -77.005511));
+
+        tours = db.getTourNames();
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tours));
