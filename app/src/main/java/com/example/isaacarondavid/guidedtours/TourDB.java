@@ -1,6 +1,7 @@
 package com.example.isaacarondavid.guidedtours;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -404,14 +405,17 @@ public class TourDB {
 		return rowCount;
 	}
 	public String[] getTourNames() {
-		String[] names = new String[2];//size was arbitrarily set
+		List<String> stockList = new ArrayList<String>();
+
+
+
 		openReadableDB();
 		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);
-		int i = 0;
 		while (cursor.moveToNext()) {
-			names[i] = cursor.getString(TOUR_NAME_COL);
-			i++;
+			stockList.add(cursor.getString(TOUR_NAME_COL));
 		}
+		String[] names = new String[stockList.size()];
+		names = stockList.toArray(names);
 		this.closeDB();
 
 		return names;

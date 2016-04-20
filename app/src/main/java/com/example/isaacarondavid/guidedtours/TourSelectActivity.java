@@ -39,7 +39,10 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 9, "Bethel", "Bethel College, Bethel, KS", (float) 38.074617, (float) -97.342347));
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 10, "Hesston", "Hesston College, Hesston, KS", (float) 38.13324, (float) -97.432913));
 
-
+        db.insertTour(new Tour(3, "Harrisonburg Area Hiking", "Hiking locations around Harrisonburg"));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 11, "Hone Quarry", "Hone Quarry Campground with with Lover's Leap and Hidden Rocks", (float) 38.457906, (float) -79.133355));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 12, "Fridley Gap", "Fridley Gap has beautiful hikes that overlook Harrisonburg", (float) 38.496775, (float) -78.709348));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 13, "Hone Quarry", "Hone Quarry Campground with with Lover's Leap and Hidden Rocks", (float) 38.571722, (float) -79.1144871));
         tours = db.getTourNames();
 
 
