@@ -19,22 +19,22 @@ import android.widget.Toast;
  */
 public class TourSelectActivity extends Activity implements AdapterView.OnItemClickListener {
 
-	// declare instance variables
+    // declare instance variables
     private String[] tours;
     private TourDB db;
 
-	/**
-	 * {@inheritDoc}
-	 */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_select);
 
-		// create new TourDB object
+        // create new TourDB object
         db = new TourDB(this.getApplicationContext());
 
-		// create EMU tour
+        // create EMU tour
         db.insertTour(new Tour(1, "EMU", "Significant places around EMU"));
         db.insertDestination(new Destination(db.getTour("EMU").getId(), 1, "Quad", "This is where the main undergraduate dorms are.", (float) 38.472000, (float) -78.877306));
         db.insertDestination(new Destination(db.getTour("EMU").getId(), 2, "Hilltop", "There is a great view of the city here.", (float) 38.471409, (float) -78.882383));
@@ -42,7 +42,7 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
         db.insertDestination(new Destination(db.getTour("EMU").getId(), 4, "SC", "This building was newly renovated in 2015 and has all of our science labs.", (float) 38.470007, (float) -78.878113));
         db.insertDestination(new Destination(db.getTour("EMU").getId(), 5, "Library", "Sadie Hartler Library: where students go to study.", (float) 38.470272, (float) -78.878997));
 
-		// create Mennonite Colleges tour
+        // create Mennonite Colleges tour
         db.insertTour(new Tour(2, "Mennonite Colleges", "These are the five mennonite colleges in the US"));
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 6, "EMU", "Eastern Menonite University, Harrisonburg, VA", (float) 38.472000, (float) -78.877306));
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 7, "Bluffton", "Bluffton University, Bluffton, OH", (float) 40.896393, (float) -83.896934));
@@ -50,7 +50,7 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 9, "Bethel", "Bethel College, Bethel, KS", (float) 38.074617, (float) -97.342347));
         db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 10, "Hesston", "Hesston College, Hesston, KS", (float) 38.13324, (float) -97.432913));
 
-		// create Harrisonburg Area Hiking tour
+        // create Harrisonburg Area Hiking tour
         db.insertTour(new Tour(3, "Harrisonburg Area Hiking", "Hiking locations around Harrisonburg"));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 11, "Hone Quarry", "Hone Quarry Campground with Lover's Leap and Hidden Rocks", (float) 38.457906, (float) -79.133355));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 12, "Fridley Gap", "Fridley Gap has beautiful hikes that overlook Harrisonburg", (float) 38.496775, (float) -78.709348));
@@ -58,7 +58,7 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 14, "Reddish Knob", "Highest Point in Virginia with an amazing view", (float) 38.462244, (float) -79.241747));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 15, "Shenandoah National Park", "Skyline Drive is dotted with countless beuatiful overlooks and the Appalachian Trail", (float) 38.358598, (float) -78.546885));
 
-		// create Washington DC National Mall tour
+        // create Washington DC National Mall tour
         db.insertTour(new Tour(4, "Washington DC National Mall", "Famous buildings on the National Mall"));
         db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 16, "Washington Monument", "A large Obelisk honoring the First president of the USA", (float) 38.889461, (float) -77.035281));
         db.insertDestination(new Destination(db.getTour("Washington DC National Mall").getId(), 17, "The White House", "Home of the American president", (float) 38.898586, (float) -77.036588));
@@ -74,13 +74,13 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
         listView.setOnItemClickListener(this);
     }
 
-	/**
-	 * Called when a tour is selected from the AdapterView
-	 * @param parent - the AdapterView where the user click occurred
-	 * @param view - the view that was clicked
-	 * @param position - the position of the view that was clicked
-	 * @param id - the row id of the clicked item
-	 */
+    /**
+     * Called when a tour is selected from the AdapterView
+     * @param parent - the AdapterView where the user click occurred
+     * @param view - the view that was clicked by the user
+     * @param position - the position of the view that was clicked
+     * @param id - the row id of the clicked item
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent map = new Intent(getApplicationContext(), MapsActivity.class);
