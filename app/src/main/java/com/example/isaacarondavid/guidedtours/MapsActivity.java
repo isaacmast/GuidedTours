@@ -63,6 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int FASTEST_UPDATE_INTERVAL = 2000; //2 seconds
     private LocationRequest locationRequest;
 
+    private Marker user_location;
+
     //**************************************************************
     // Activity lifecycle methods
     //****************************************************************
@@ -140,17 +142,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .getLastLocation(googleApiClient);
 
             if (location != null) {
-                // zoom in on current location
-                map.animateCamera(
-                        CameraUpdateFactory.newCameraPosition(
-                                new CameraPosition.Builder()
-                                        .target(new LatLng(location.getLatitude(),
-                                                location.getLongitude()))
-                                        .zoom(16.5f)
-                                        .bearing(0)
-                                        .tilt(25)
-                                        .build()));
-
 
                 // add a marker for the current location
                 current =
@@ -198,7 +189,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
-        markers.add(setCurrentLocationMarker());
+        user_location = setCurrentLocationMarker();
+        markers.add(user_location);
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Marker marker : markers) {
@@ -218,8 +210,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         PendingIntent pendingIntent = PendingIntent.getActivity(MapsActivity.this, 0, intent, 0);
         Notification.Builder builder = new Notification.Builder(MapsActivity.this);
         builder.setSmallIcon(R.drawable.common_google_signin_btn_icon_dark);
-        builder.setContentTitle("GuidedTours Notification");
-        builder.setContentText("This is a test.");
+        builder.setContentTitle(notificationTitle);
+        builder.setContentText(notificationMessage);
         builder.build();
         Notification myNotification = builder.getNotification();
         notificationManager.notify(999, myNotification);
@@ -281,9 +273,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location){
-        //if (location.getLatitude() + location.getLongitude() ){
-        Notify("Title","This is a test"); //TODO: Only notify if you are close to destination
-        //}
+        for (Integer id : markerIds.values()) {
+            Destination d = db.getDestinationById(id);
+            if (Math.pow(location.getLatitude()-d.getLatitude(),2) +
+                    Math.pow(location.getLongitude()-d.getLongitude(),2) <= Math.pow(0.0003,2)){
+                Notify("GuidedTours","You are close to "+d.getName());
+            }
+        }
+
+        //Move the user's marker
+        user_location.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
     }
 
 }
