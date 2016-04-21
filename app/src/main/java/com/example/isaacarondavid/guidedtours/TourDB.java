@@ -372,10 +372,13 @@ public class TourDB {
 
 		return rowCount;
 	}
+
+	/**
+	 * Retrieves all of the names stored in the DB
+	 * @return names - a String array containing the names of the tours
+	 */
 	public String[] getTourNames() {
 		List<String> stockList = new ArrayList<String>();
-
-
 
 		openReadableDB();
 		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);
