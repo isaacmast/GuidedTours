@@ -31,25 +31,25 @@ public class TourSelectActivity extends Activity implements AdapterView.OnItemCl
 
         // create EMU tour
         db.insertTour(new Tour(1, "EMU", "Significant places around EMU"));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(), 1, "Quad", "This is where the main undergraduate dorms are.", (float) 38.472000, (float) -78.877306));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(), 2, "Hilltop", "There is a great view of the city here.", (float) 38.471409, (float) -78.882383));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(), 3, "Caf", "This is where all students eat located under Northlawn.", (float) 38.471730, (float) -78.879643));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(), 4, "Science Center", "This building was newly renovated in 2015 and has all of our science labs.", (float) 38.470007, (float) -78.878113));
-        db.insertDestination(new Destination(db.getTour("EMU").getId(), 5, "Library", "Sadie Hartler Library: where students go to study.", (float) 38.470272, (float) -78.878997));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(), 1, "Quad", "The quad is a the lawn between three of the undergraduate dorms, Cedarwood, Elmwood, and Maplewood. All three are LEED Gold Certified and have capacity for 294 total students.", (float) 38.472000, (float) -78.877306));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(), 2, "Hilltop", "The hilltop has a fire pit with an amazing view of the campus, city, and the surrounding Blue Ridge Mountains.", (float) 38.471409, (float) -78.882383));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(), 3, "Caf", "The cafeteria is located under the Northlawn dormitory and serves all of the campus food.", (float) 38.471730, (float) -78.879643));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(), 4, "Science Center", "This building was newly renovated in 2015 and has all of our science labs along with our lecture hall and the D. Ralph Hostetter Museum of Natural History.", (float) 38.470007, (float) -78.878113));
+        db.insertDestination(new Destination(db.getTour("EMU").getId(), 5, "Library", "Sadie Hartler Library. The library has quiet spaces with computers where students can come to work on papers and finish homeowrk. The library is also home to The Technology Help Desk and the Menno Simmons Historical Library.", (float) 38.470272, (float) -78.878997));
 
         // create Mennonite Colleges tour
         db.insertTour(new Tour(2, "Mennonite Colleges", "These are the five mennonite colleges in the US"));
-        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 6, "EMU", "Eastern Menonite University, Harrisonburg, VA", (float) 38.472000, (float) -78.877306));
-        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 7, "Bluffton", "Bluffton University, Bluffton, OH", (float) 40.896393, (float) -83.896934));
-        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 8, "Goshen", "Goshen College, Goshen, IN", (float) 41.564414, (float) -85.827363));
-        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 9, "Bethel", "Bethel College, Bethel, KS", (float) 38.074617, (float) -97.342347));
-        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 10, "Hesston", "Hesston College, Hesston, KS", (float) 38.13324, (float) -97.432913));
+        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 6, "EMU", "Eastern Menonite University, Harrisonburg, VA, Founded 1917", (float) 38.472000, (float) -78.877306));
+        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 7, "Bluffton", "Bluffton University, Bluffton, OH, Founded 1899", (float) 40.896393, (float) -83.896934));
+        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 8, "Goshen", "Goshen College, Goshen,IN, Founded 1894", (float) 41.564414, (float) -85.827363));
+        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 9, "Bethel", "Bethel College, Bethel, KS, Founded 1887", (float) 38.074617, (float) -97.342347));
+        db.insertDestination(new Destination(db.getTour("Mennonite Colleges").getId(), 10, "Hesston", "Hesston College, Hesston, KS, Founded 1909", (float) 38.13324, (float) -97.432913));
 
         // create Harrisonburg Area Hiking tour
         db.insertTour(new Tour(3, "Harrisonburg Area Hiking", "Hiking locations around Harrisonburg"));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 11, "Hone Quarry", "Hone Quarry Campground with Lover's Leap and Hidden Rocks", (float) 38.457906, (float) -79.133355));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 12, "Fridley Gap", "Fridley Gap has beautiful hikes that overlook Harrisonburg", (float) 38.496775, (float) -78.709348));
-        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 13, "Switzer Lake", "Hiking Area right before the West Virginia border", (float) 38.571722, (float) -79.145149));
+        db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 13, "Switzer Lake", "Hiking Area right before the West Virginia border on US33", (float) 38.571722, (float) -79.145149));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 14, "Reddish Knob", "Highest Point in Virginia with an amazing view", (float) 38.462244, (float) -79.241747));
         db.insertDestination(new Destination(db.getTour("Harrisonburg Area Hiking").getId(), 15, "Shenandoah National Park", "Skyline Drive is dotted with countless beuatiful overlooks and the Appalachian Trail", (float) 38.358598, (float) -78.546885));
 

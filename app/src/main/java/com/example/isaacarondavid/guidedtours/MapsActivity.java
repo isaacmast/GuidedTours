@@ -125,7 +125,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //****************************************************************
     private void updateMap(){
         if (googleApiClient.isConnected()) {
-            //setCurrentLocationMarker();
             setDestinationMarkers(main);
         }
     }
@@ -267,7 +266,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         Toast.makeText(this,"Map ready",Toast.LENGTH_SHORT).show();
-        //setCurrentLocationMarker();
         setDestinationMarkers(main);
     }
 
