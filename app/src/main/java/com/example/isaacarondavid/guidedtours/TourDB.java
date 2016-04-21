@@ -33,12 +33,6 @@ public class TourDB {
 	public static final String TOUR_DESCRIPTION = "tour_description";
 	public static final int TOUR_DESCRIPTION_COL = 2;
 
-	//public static final String TOUR_PRIMARY_LATITUDE = "tour_primary_latitude";
-	//public static final int TOUR_PRIMARY_LATITUDE_COL = 3;
-
-	//public static final String TOUR_PRIMARY_LONGITUDE = "tour_primary_longitude";
-	//public static final int TOUR_PRIMARY_LONGITUDE_COL = 4;
-
 	// destination table constants
 	public static final String DESTINATION_TABLE = "destination";
 
@@ -218,38 +212,6 @@ public class TourDB {
 	}
 
 	/**
-<<<<<<< Updated upstream
-=======
-	 * Retrieves a tour of name tourName from the tour table
-	 * @param tourName - the name of the tour to be retrieved
-	 * @return tour - the tour of name tourName retrieved from the database
-	 */
-	/*public Tour getTour(String tourName) {
-		String where = TOUR_NAME + "= ?";
-		String[] whereArgs = {tourName};
-
-		openReadableDB();
-		Cursor cursor = db.query(TOUR_TABLE, null, where, whereArgs, 
-			null, null, null);
-		Tour tour = null;
-		cursor.moveToFirst();
-		tour = new Tour(
-			cursor.getInt(TOUR_ID_COL), 
-			cursor.getString(TOUR_NAME_COL),
-			cursor.getString(TOUR_DESCRIPTION_COL)
-		);
-		if (cursor != null) {
-			cursor.close();
-		}
-		this.closeDB();
-
-		return tour;
-	}*/
-
-
-
-	/**
->>>>>>> Stashed changes
 	 * Retrieves the current destination from the Cursor object
 	 * @param cursor - the Cursor object that contains the results from a DB query
 	 * @return destination - the destination pointed at by cursor
@@ -404,10 +366,13 @@ public class TourDB {
 
 		return rowCount;
 	}
+
+	/**
+	 * Retrieves all of the names stored in the DB
+	 * @return names - a String array containing the names of the tours
+	 */
 	public String[] getTourNames() {
 		List<String> stockList = new ArrayList<String>();
-
-
 
 		openReadableDB();
 		Cursor cursor = db.rawQuery("select * from "+TOUR_TABLE,null);

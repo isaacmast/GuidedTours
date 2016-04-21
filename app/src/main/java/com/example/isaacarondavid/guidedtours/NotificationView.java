@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 
 /**
- * Created by aronharder on 4/5/16.
+ * Alerts user with notifications based on their activity within the app
+ * @author aronharder on 4/5/16.
  */
 public class NotificationView extends Activity {
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

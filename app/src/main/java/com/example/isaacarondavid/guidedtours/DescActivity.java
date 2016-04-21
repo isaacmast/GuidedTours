@@ -10,16 +10,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Created by aronharder on 3/31/16.
+ * Activity that shows information about a selected destination by the user
+ * @author aronharder on 3/31/16.
  */
 public class DescActivity extends Activity implements OnClickListener {
     //TODO: add a "Start from here" button that allows the user to start the tour in the middle
     //NOTE: take out these 2 lines if github won't sync
+
+    // declare instance variables
     private TextView title;
     private TextView description;
     private Button backToMaps;
     private Intent mapsIntent;
 
+    /**
+     * {@inheritDoc}
+     */
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desc);
@@ -36,17 +42,26 @@ public class DescActivity extends Activity implements OnClickListener {
         description.setText(getIntent().getStringExtra("Description"));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onStart() {
         super.onStart();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onStop() {
         super.onStop();
     }
 
-        @Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void onClick(View v) {
         startActivity(mapsIntent);
     }
